@@ -37,7 +37,7 @@ jobs:
           key: ${{ runner.os }}-${{ hashFiles('résumé.tex') }}
 
       - name: GitHub Action for LaTeX
-        uses: xu-cheng/latex-action@latest
+        uses: xu-cheng/latex-action@v2
         with:
           root_file: résumé.tex
       
