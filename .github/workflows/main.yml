@@ -1,0 +1,53 @@
+name: CI/CD Actions
+
+on: push
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+        with:
+          submodules: true
+          fetch-depth: 0
+
+      - name: Cache
+        uses: actions/cache@v2
+        with:
+          # A list of files, directories, and wildcard patterns to cache and restore
+          path: |
+            *.aux
+            *.lof
+            *.lot
+            *.fls
+            *.out
+            *.toc
+            *.fmt
+            *.fot
+            *.cb
+            *.cb2
+            .*.lb
+            *.bbl
+            *.bcf
+            *.blg
+            *-blx.aux
+            *-blx.bib
+            *.run.xml
+          key: ${{ runner.os }}-${{ hashFiles('résumé.tex') }}
+
+      - name: LaTeX compilation
+        uses: dante-ev/latex-action@latest
+        with:
+          root_file: résumé.tex
+          args: -outdir=./public
+      
+      # - run: |
+      #     mkdir -p public
+      #     mv résumé.pdf public
+
+      - name: GitHub Pages action
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./public
