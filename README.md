@@ -1,6 +1,8 @@
 # Résumé
 ## `nevikw39`
 
+![](https://github.com/nevikw39/Resume/actions/workflows/main.yml/badge.svg)
+
 This is my simple résumé written by LaTeX.
 
 ## CI/CD
